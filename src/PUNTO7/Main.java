@@ -3,12 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package PUNTO6;
+package PUNTO7;
 
+/**
+ *
+ * @author USER
+ */
 public class Main {
-
-    public static void main(String[] args) {
-        Escenario cuarto = new Escenario();
-        cuarto.paredes();
+    public static void main(String[] args){
+        Escena limpiar = new Escena();
+        limpiar.paredes();
+        limpiar.Recoger();
     }
+            
 }
