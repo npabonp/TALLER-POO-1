@@ -64,21 +64,22 @@ public class Escena {
         cuadros();
         Cuadro4();
         cuadros();
+  
     }
 
     public void cuadros() {
 
-        for (int i = 9; i > 4; i--) {
+        for (int i = 9; i > 5; i--) {
             for (int j = 4; j > 0; j--) {
                 karel.pickThing();
-                System.out.println(i);
-                System.out.println(j);
                 if (karel.frontIsClear() && (j > 1)) {
                     karel.move();
                 }
             }
             setRobDirection(karel, Direction.WEST);
-            karel.move();
+            if (karel.frontIsClear()){
+                karel.move();
+            }
             
             if (i % 2 == 1) {
                 setRobDirection(karel, Direction.SOUTH);
@@ -118,5 +119,7 @@ public class Escena {
         karel.move();
         setRobDirection(karel, Direction.WEST);
         karel.move();
+        setRobDirection(karel, Direction.NORTH);
+        
     }
 }
