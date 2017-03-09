@@ -120,6 +120,5 @@ public class Escena {
         setRobDirection(karel, Direction.WEST);
         karel.move();
         setRobDirection(karel, Direction.NORTH);
-        
-    }
+        }
 }
