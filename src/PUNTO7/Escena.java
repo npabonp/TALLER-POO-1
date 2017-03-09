@@ -13,9 +13,9 @@ import becker.robots.Wall;
 
 public class Escena {
 
-    City city = new City();
+   City city = new City();
 
-    Robot karel = new Robot(city, 10, 5, Direction.NORTH, 0);
+    Robot karel = new Robot(city, 10, 4, Direction.NORTH, 0);
 
     public void setRobDirection(Robot r, Direction d) {
         while (r.getDirection() != d) {
@@ -23,14 +23,15 @@ public class Escena {
         }
     }
 
-    public void paredes() {
-        for (int i = 0; i < 11; i++) {
-            Wall pared = new Wall(city, i, 0, Direction.WEST);
-            Wall pared1 = new Wall(city, 0, i, Direction.NORTH);
-            Wall pared2 = new Wall(city, i, 10, Direction.EAST);
-            Wall pared3 = new Wall(city, 10, i, Direction.SOUTH);
-        }
+    public void avanzar() {
         for (int i = 0; i < 4; i++) {
+            karel.move();
+        }
+    }
+
+    public void paredes() {
+
+        for (int i = 1; i < 5; i++) {
             Wall paredh0 = new Wall(city, 4, i, Direction.SOUTH);
             Wall paredh1 = new Wall(city, 6, i, Direction.NORTH);
             Wall paredh2 = new Wall(city, i, 4, Direction.EAST);
@@ -43,56 +44,79 @@ public class Escena {
             Wall paredh5 = new Wall(city, i, 6, Direction.WEST);
         }
 
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j <= i; j++) {
+        for (int i = 1; i < 5; i++) {
+            for (int j = 1; j < 5; j++) {
                 Thing cosa1 = new Thing(city, i, j);
-                Thing cosa2 = new Thing(city, j, i);
-            }
-        }
-        for (int i = 6; i < 11; i++) {
-            for (int j = 6; j < 11; j++) {
-                Thing cosa1 = new Thing(city, i, j);
-                Thing cosa2 = new Thing(city, j, i);
-            }
-
-        }
-        for (int i = 6; i < 11; i++) {
-            for (int j = 0; j < 5; j++) {
-                Thing cosa1 = new Thing(city, i, j);
-                Thing cosa2 = new Thing(city, j, i);
+                Thing cosa3 = new Thing(city, i, (j + 5));
+                Thing cosa4 = new Thing(city, (j + 5), i);
+                Thing cosa5 = new Thing(city, (i + 5), (j + 5));
             }
         }
 
     }
 
     public void Recoger() {
+        karel.move();
+        cuadros();
+        Cuadro2();
+        cuadros();
+        Cuadro3();
+        cuadros();
+        Cuadro4();
+        cuadros();
+    }
 
-        while (true) {
+    public void cuadros() {
 
-            setRobDirection(karel, Direction.WEST);
-            while (karel.frontIsClear()) {
-                if (karel.frontIsClear()) {
+        for (int i = 9; i > 4; i--) {
+            for (int j = 4; j > 0; j--) {
+                karel.pickThing();
+                System.out.println(i);
+                System.out.println(j);
+                if (karel.frontIsClear() && (j > 1)) {
                     karel.move();
-                    karel.pickThing();
                 }
             }
-
-            if (!karel.canPickThing()) {
+            setRobDirection(karel, Direction.WEST);
+            karel.move();
+            
+            if (i % 2 == 1) {
+                setRobDirection(karel, Direction.SOUTH);
+            } else {
                 setRobDirection(karel, Direction.NORTH);
-                karel.move();
-
-                setRobDirection(karel, Direction.EAST);
-                while (karel.frontIsClear()) {
-                    if (karel.frontIsClear()) {
-                        karel.pickThing();
-                        karel.move();
-
-                    }
-                }
-               if (!karel.canPickThing()) {
-                setRobDirection(karel, Direction.NORTH);
-                karel.move(); 
-            }}
+            }
         }
+    }
+
+    public void Cuadro2() {
+        
+        avanzar();
+        karel.move();
+        setRobDirection(karel, Direction.EAST);
+        avanzar();
+        setRobDirection(karel, Direction.NORTH);
+    }
+
+    public void Cuadro3() {
+        avanzar();
+        setRobDirection(karel, Direction.EAST);
+        for (int i = 0; i < 2; i++) {
+            avanzar();
+        }
+        karel.move();
+        setRobDirection(karel, Direction.SOUTH);
+        avanzar();
+        setRobDirection(karel, Direction.NORTH);
+    }
+
+    public void Cuadro4() {
+        
+        setRobDirection(karel, Direction.EAST);
+        avanzar();
+        setRobDirection(karel, Direction.SOUTH);
+        avanzar();
+        karel.move();
+        setRobDirection(karel, Direction.WEST);
+        karel.move();
     }
 }
