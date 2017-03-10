@@ -16,8 +16,6 @@ public class Main {
      futb.jugar();
      Punto5 paredes=new Punto5();
      paredes.funcion();
-     Punto5b cinco=new Punto5b();
-     cinco.copiar();
      Punto4 histogramas=new Punto4();
      histogramas.moverse();
      
